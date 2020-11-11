@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".LoginActivity">
+   <androidx.cardview.widget.CardView
+       android:layout_width="350dp"
+       android:layout_height="400dp"
+       android:layout_centerInParent="true"
+       app:cardCornerRadius="7dp"
+       app:cardElevation="5dp"
+       app:contentPadding="5dp"
+      >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+         android:padding="8dp"
+          android:textColor="@android:color/darker_gray"
+         android:layout_margin="5dp"
+          android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+         android:text="Email">
+
+      </androidx.appcompat.widget.AppCompatTextView>
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/textField"
+          android:layout_width="match_parent"
+          android:layout_height="70dp"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          app:startIconDrawable="@drawable/baseline_email_black_18dp"
+          app:startIconContentDescription="Enter your email"
+          app:boxStrokeColor="@android:color/darker_gray"
+          app:boxStrokeWidth="2dp"
+          android:layout_margin="8dp"
+          app:hintAnimationEnabled="true"
+          app:hintTextColor="@color/cardview_light_background"
+          app:startIconTint="@android:color/darker_gray"
+          android:hint="Email">
+
+         <com.google.android.material.textfield.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:hint="Email"
+             android:id="@+id/loginemail"
+             android:textCursorDrawable="@null"
+             android:textColor="@android:color/darker_gray"
+
+             />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="8dp"
+          android:textColor="@android:color/darker_gray"
+          android:layout_margin="5dp"
+          android:text="Password">
+
+      </androidx.appcompat.widget.AppCompatTextView>
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/passfield"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:startIconDrawable="@drawable/baseline_vpn_key_black_24dp"
+          app:startIconTint="@android:color/darker_gray"
+          app:startIconContentDescription="Enter your password"
+          app:endIconMode="password_toggle"
+          app:counterEnabled="true"
+          app:counterMaxLength="8"
+          app:boxStrokeWidth="2dp"
+          app:boxStrokeColor="@android:color/darker_gray"
+          android:layout_margin="8dp"
+          app:counterTextColor="@android:color/darker_gray"
+app:endIconTint="@android:color/darker_gray"
+          app:hintTextColor="@color/cardview_light_background"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:hint="Password">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="textPassword"
+          android:cursorVisible="true"
+          android:textCursorDrawable="@null"
+          android:id="@+id/loginpass"
+          android:textColor="@android:color/darker_gray"
+          />
+      </com.google.android.material.textfield.TextInputLayout>
+
+         <androidx.appcompat.widget.AppCompatButton
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginHorizontal="10dp"
+             android:padding="8dp"
+             android:text="Login"
+             android:id="@+id/login"
+             android:textColor="@android:color/primary_text_dark"
+             android:background="#737a"
+             android:gravity="center">
+
+         </androidx.appcompat.widget.AppCompatButton>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAllCaps="true"
+          android:id="@+id/signup"
+          android:textAlignment="center"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:letterSpacing=".00009"
+          android:text="New user? Sign Up"
+          android:textColor="@android:color/darker_gray"
+          android:gravity="center_horizontal"
+          >
+
+      </TextView>
+
+
+      </LinearLayout>
+
+   </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
