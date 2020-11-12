@@ -1,37 +1,18 @@
-package com.example.ui;
+package com.example.ui
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.example.ui.RealmDB.User;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.io.Console;
-
-import io.realm.Realm;
-import io.realm.RealmChangeListener;
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 
 
 //import static com.example.ui.MyApplication.app;
+class Signup : AppCompatActivity() {
 
-
-public class Signup extends AppCompatActivity {
-
-    private Realm realm1;
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_signup);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_signup)
 
 
 //       final App app= new App(new AppConfiguration.Builder("ui-eygrw").build());
@@ -62,18 +43,12 @@ public class Signup extends AppCompatActivity {
 //
 //            }
 //        });
-
-
-        findViewById(R.id.sign_up).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //createUser(realm1);
-            }
-        });
+        findViewById<View>(R.id.sign_up).setOnClickListener {
+            //createUser(realm1);
+        }
     }
 
-    public void createUser(Realm realm)
-    {
+    fun createUser() {
 //        realm.executeTransactionAsync(new Realm.Transaction() {
 //            @Override
 //            public void execute(Realm realm) {
@@ -141,11 +116,10 @@ public class Signup extends AppCompatActivity {
 //            }
 //        });
 //
-
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        realm1.close(); // Remember to close Realm when done.
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //        realm1.close(); // Remember to close Realm when done.
     }
 }

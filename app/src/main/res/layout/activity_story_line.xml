@@ -7,6 +7,7 @@
         <variable
             name="viewmodel"
             type="com.example.ui.viewmodels.StoryLineViewModel"/>
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -114,11 +115,11 @@
                             <androidx.appcompat.widget.AppCompatImageButton
                                 android:id="@+id/like"
                                 android:layout_width="wrap_content"
-                                android:layout_height="20dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="3dp"
                                 android:background="@android:color/transparent"
                                 android:src="@drawable/ic_fav"
-                                android:tint="@{viewmodel.color}"
+                                android:tint="@{viewmodel.likedvalue? @color/red:@color/unlike}"
                                 app:fabCustomSize="@dimen/material_emphasis_medium"
                                 app:fabSize="mini">
 
