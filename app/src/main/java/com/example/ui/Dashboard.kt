@@ -24,6 +24,7 @@ import com.example.ui.CharacterForm
 import com.example.ui.Dashboard.CustomAdapter.MyViewHolder
 import com.example.ui.viewmodels.CharactersViewModel
 import com.google.android.material.appbar.AppBarLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -85,6 +86,7 @@ class Dashboard : AppCompatActivity() {
 
         findViewById<View>(R.id.logout).setOnClickListener {
             sharedPreferences!!.edit().clear().apply()
+            FirebaseAuth.getInstance().signOut()
             startActivity(Intent(applicationContext, LoginActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
             finish()
         }

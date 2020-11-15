@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ui">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FavoritesActivity"></activity>
-        <activity android:name=".CharacterForm"></activity>
+        <activity android:name=".ContributorsActivity"></activity>
+        <activity android:name=".FavoritesActivity" />
+        <activity android:name=".CharacterForm" />
         <activity android:name=".StoryLine" />
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".Dashboard" />
         <activity android:name=".Signup" />
         <activity android:name=".LoginActivity" />
         <activity

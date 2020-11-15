@@ -12,40 +12,37 @@
     android:layout_margin="3dp"
     app:strokeColor="@android:color/darker_gray"
     >
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_gravity="center_horizontal"
-            app:civ_border_color="#716B6B"
-             android:id="@+id/card_image"
-            app:civ_border_width="5dp"
             android:layout_marginTop="10dp"
-            app:civ_circle_background_color="#BCBDB8"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/card_image"
+            android:scaleType="fitXY"
+            android:layout_marginVertical="5dp"
+            app:shapeAppearanceOverlay="@style/circleImageView"
             >
 
-        </de.hdodenhof.circleimageview.CircleImageView>
-
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:maxHeight="280dp"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            android:id="@+id/card_image"-->
+        </com.google.android.material.imageview.ShapeableImageView>
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="110dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            app:civ_border_color="#716B6B"-->
+<!--             android:id="@+id/card_image"-->
+<!--            app:civ_border_width="5dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:civ_circle_background_color="#BCBDB8"-->
 <!--            >-->
 
-<!--        </ImageView>-->
+<!--        </de.hdodenhof.circleimageview.CircleImageView>-->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,12 +51,10 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textColor="#656161"
+            android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:textSize="20sp"
             >
         </TextView>
-<!--        -->
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

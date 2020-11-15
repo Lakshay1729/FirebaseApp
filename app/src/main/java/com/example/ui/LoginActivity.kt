@@ -4,26 +4,36 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.ui.Dashboard
+import com.example.ui.databinding.ActivityLoginBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+
     //    private Realm realm1;
     //    private RealmConfiguration configuration;
      var sharedPreferences: SharedPreferences? = null
     val sharedPrefs = "Shared"
+    lateinit var binding:ActivityLoginBinding
     private var editor: SharedPreferences.Editor? = null
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_login)
-        //        realm1=Realm.getDefaultInstance();
+        binding= ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        auth=FirebaseAuth.getInstance()
+
         sharedPreferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE)
         editor =  getSharedPreferences(sharedPrefs, MODE_PRIVATE).edit()
         if (sharedPreferences!!.contains("email")) {
@@ -57,7 +67,18 @@ class LoginActivity : AppCompatActivity() {
 //        });
         findViewById<TextView>(R.id.signup).setOnClickListener { startActivity(Intent(applicationContext, Signup::class.java)) }
         findViewById<AppCompatButton>(R.id.login).setOnClickListener { //                loginAuth();
-            startActivity(Intent(applicationContext, Dashboard::class.java))
+            auth.signInWithEmailAndPassword(binding.loginemail.text.toString(),binding.loginpass.text.toString()).addOnCompleteListener(){
+                if(it.isSuccessful){
+                    val editor= getSharedPreferences("Shared", MODE_PRIVATE).edit()
+                    editor.putString("UID",it.result?.user?.uid).apply()
+                    startActivity(Intent(this,Dashboard::class.java))
+                    finish()
+
+                }
+                else{
+                    Snackbar.make(findViewById(R.id.parent),"Login failed",Snackbar.LENGTH_LONG).show()
+                }
+            }
         }
     }
 

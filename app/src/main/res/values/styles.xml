@@ -12,6 +12,17 @@
         <item name="android:background">@color/gray_400</item>
         <item name="exampleColor">@color/light_blue_400</item>
     </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerSize">20%</item>
+        <item name="cornerRadius">@dimen/cardview_default_radius</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="android:bottomLeftRadius">
+            10dp
+        </item>
+
+    </style>
+
     <!--    <style name="AppTheme.Splash">-->
     <!--        <item name="android:windowBackground">@drawable/splash_screen</item>-->
     <!--    </style>-->

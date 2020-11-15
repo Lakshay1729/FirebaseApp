@@ -1,125 +1,67 @@
 package com.example.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ui.databinding.ActivitySignupBinding
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 
 
 //import static com.example.ui.MyApplication.app;
 class Signup : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_signup)
+        val binding = ActivitySignupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+// ...
+// Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
+        binding.signUp.setOnClickListener(View.OnClickListener {
+            auth.createUserWithEmailAndPassword(binding.emailField.text.toString(), binding.passfield.text.toString()).addOnCompleteListener(this) {
+
+                if (it.isSuccessful) {
+                    Log.d("Result_ignIn", it.result.toString())
+//                    val user = auth.currentUser
+                    val editor= getSharedPreferences("Shared", MODE_PRIVATE).edit()
+                    editor.putString("UID",it.result?.user?.uid).apply()
+                    startDashboard()
 
 
-//       final App app= new App(new AppConfiguration.Builder("ui-eygrw").build());
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("Result_ignIn", "createUserWithEmail:failure", it.exception)
+                    Toast.makeText(baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
 
-
-//        app.loginAsync(Credentials.anonymous(), new App.Callback<io.realm.mongodb.User>() {
-//            @Override
-//            public void onResult(App.Result<io.realm.mongodb.User> result) {
-//                if(result.isSuccess()) {
-//                    //configuration=new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
-//                    Log.d("Suxess","Success");
-//                    io.realm.mongodb.User user = app.currentUser();
-//                    Long partitionValue = 123L;
-//                    assert user != null;
-//                    syncConfiguration = new SyncConfiguration.Builder(user, partitionValue).build();
-//                    Realm.setDefaultConfiguration(syncConfiguration);
-//                    Realm.getInstanceAsync(syncConfiguration, new Realm.Callback() {
-//                        @Override
-//                        public void onSuccess(Realm realm) {
-//                            realm1=realm;
-//                        }
-//                    });
-//                }
-//                else
-//                {
-//                    Log.d("Suxess","UNSuccess");
-//                }
-//
-//            }
-//        });
-        findViewById<View>(R.id.sign_up).setOnClickListener {
-            //createUser(realm1);
-        }
+                }
+            }
+        })
     }
 
-    fun createUser() {
-//        realm.executeTransactionAsync(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm realm) {
-//                User user = new User( 123L);
-//                //realm.createObject(User.class);
-//
-//
-//                if (!String.valueOf(((TextInputEditText) findViewById(R.id.nameField)).getText()).isEmpty())
-//                    user.setFirstName(String.valueOf(((TextInputEditText) findViewById(R.id.nameField)).getText()));
-//                else
-//                    ((TextInputEditText) findViewById(R.id.nameField)).setError("Enter Your First Name");
-//
-//                if (!String.valueOf(((TextInputEditText) findViewById(R.id.lastname_Field)).getText()).isEmpty())
-//                    user.setLastName(String.valueOf(((TextInputEditText) findViewById(R.id.lastname_Field)).getText()));
-//                else
-//                    ((TextInputEditText) findViewById(R.id.lastname_Field)).setError("Enter Your Last Name");
-//
-//                if (!String.valueOf(((TextInputEditText) findViewById(R.id.emailField)).getText()).isEmpty())
-//                    user.setEmail(String.valueOf(((TextInputEditText) findViewById(R.id.emailField)).getText()));
-//                else
-//                    ((TextInputEditText) findViewById(R.id.emailField)).setError("Enter Your Email");
-//
-//                if (!String.valueOf(((TextInputEditText) findViewById(R.id.numberField)).getText()).isEmpty())
-//                    user.setPhoneNumber(String.valueOf(((TextInputEditText) findViewById(R.id.numberField)).getText()));
-//                else
-//                    ((TextInputEditText) findViewById(R.id.numberField)).setError("Enter Your Phone Number");
-//
-//                if (String.valueOf(((TextInputEditText) findViewById(R.id.passfield)).getText()).equals(String.valueOf(((TextInputEditText) findViewById(R.id.conpassfield)).getText()))) {
-//                    user.setPassword(String.valueOf(((TextInputEditText) findViewById(R.id.passfield)).getText()));
-//
-//                } else {
-//                    ((TextInputEditText) findViewById(R.id.conpassfield)).setError("Password does not match");
-//                    ((TextInputEditText) findViewById(R.id.conpassfield)).setText("");
-////                    ((TextInputEditText) findViewById(R.id.conpassfield)).;
-//
-//
-//
-//                }
-//                 realm.insertOrUpdate(user);
-//            }
-//
-//        }, new Realm.Transaction.OnSuccess() {
-//            @Override
-//            public void onSuccess() {
-//                Toast.makeText(Signup.this, "Successful", Toast.LENGTH_SHORT).show();
-//                Log.d("sync","sucess");
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        finish();
-//                    }
-//                },1000);
-//
-//            }
-//        }, new Realm.Transaction.OnError() {
-//            @Override
-//            public void onError(Throwable error) {
-//                Toast.makeText(Signup.this, ""+error, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        realm.addChangeListener(new RealmChangeListener<Realm>() {
-//            @Override
-//            public void onChange(Realm realm) {
-//                Toast.makeText(Signup.this, "Successful"+realm.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
+    private fun startDashboard() {
+        startActivity(Intent(this,Dashboard::class.java))
+        finish()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        //        realm1.close(); // Remember to close Realm when done.
+    override fun onStart(){
+        super.onStart()
+//        auth.currentUser?.let {
+//            startActivity(Intent(this,Dashboard::class.java))
+//        }
     }
+
+
+
+
 }

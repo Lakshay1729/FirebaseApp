@@ -47,7 +47,16 @@ class StoryLine : AppCompatActivity() {
 
         })
         findViewById<View>(R.id.like).setOnClickListener {
-            storyLineViewModel!!.liked.setValue(!storyLineViewModel!!.liked.value!!)
+//          val prop=  storyLineViewModel!!.liked.value?.let { true }
+
+            if(storyLineViewModel!!.liked.value==true)
+            {
+                storyLineViewModel!!.liked.setValue(false)
+            }
+            else
+            {
+                storyLineViewModel!!.liked.setValue(true)
+            }
 
         }
     }

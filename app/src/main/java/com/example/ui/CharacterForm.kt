@@ -115,45 +115,7 @@ class CharacterForm : AppCompatActivity() {
     }
 
     private fun createCharacter() {
-//        realm.executeTransactionAsync(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm realm) {
-//
-//                //realm.createObject(User.class);
-//                if (!String.valueOf(((TextInputEditText) findViewById(R.id.character_name)).getText()).isEmpty())
-//                    character.setName(String.valueOf(((TextInputEditText) findViewById(R.id.character_name)).getText()));
-//                else
-//                    ((TextInputEditText) findViewById(R.id.character_name)).setError("Enter Character's Name");
-//
-//                if (!String.valueOf(((TextInputEditText) findViewById(R.id.description_character)).getText()).isEmpty())
-//                    character.setDescription(String.valueOf(((TextInputEditText) findViewById(R.id.description_character)).getText()));
-//                else
-//                    ((TextInputEditText) findViewById(R.id.description_character)).setError("Enter Character's description");
-//
-//                user.getCharacters().add(character);
-//
-//                realm.insertOrUpdate(user);
-//            }
-//
-//        }, new Realm.Transaction.OnSuccess() {
-//            @Override
-//            public void onSuccess() {
-//                Toast.makeText(CharacterForm.this, "Successful", Toast.LENGTH_SHORT).show();
-//                Log.d("sync","sucess");
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        finish();
-//                    }
-//                },1000);
-//
-//            }
-//        }, new Realm.Transaction.OnError() {
-//            @Override
-//            public void onError(Throwable error) {
-//                Toast.makeText(CharacterForm.this, ""+error, Toast.LENGTH_LONG).show();
-//            }
-//        });
+
         val random = UUID.randomUUID().toString()
         val path = "characterImages/$random.png"
         val fireimageRef = storage.getReference(path)
@@ -172,6 +134,7 @@ class CharacterForm : AppCompatActivity() {
             character!!["CharacterName"] = (findViewById<View>(R.id.character_name) as TextInputEditText).text.toString()
             character!!["Description"] = (findViewById<View>(R.id.description_character) as TextInputEditText).text.toString()
             character!!["ImageLink"] = generatedFilePath!!
+            character!!["UID"]=sharedPreferences?.getString("UID",null).toString()
             characterViewModel!!.db.collection("characters")
                     .add(character!!)
                     .addOnSuccessListener { documentReference ->
