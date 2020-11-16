@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.ui.CharacterForm
 import com.example.ui.Dashboard.CustomAdapter.MyViewHolder
+import com.example.ui.databinding.ActivityDashboardBinding
 import com.example.ui.viewmodels.CharactersViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -84,6 +85,7 @@ class Dashboard : AppCompatActivity() {
         })
 
 
+
         findViewById<View>(R.id.logout).setOnClickListener {
             sharedPreferences!!.edit().clear().apply()
             FirebaseAuth.getInstance().signOut()
@@ -91,6 +93,7 @@ class Dashboard : AppCompatActivity() {
             finish()
         }
         findViewById<View>(R.id.form_contribute).setOnClickListener { startActivity(Intent(applicationContext, CharacterForm::class.java)) }
+        findViewById<View>(R.id.people).setOnClickListener { startActivity(Intent(applicationContext, ContributorsActivity::class.java)) }
 
     }
 

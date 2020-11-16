@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:layout_width="match_parent"
+    tools:context=".Signup">
+<androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:paddingVertical="12dp"
     android:layout_gravity="center"
+    android:layout_marginTop="20dp"
     android:layout_height="match_parent"
-    android:background="#EE1C1B1C"
-    tools:context=".Signup">
-
+    >
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        app:cardBackgroundColor="@android:color/background_light"
+        app:cardBackgroundColor="@color/cardview_dark_background"
         app:cardCornerRadius="7dp"
         app:cardElevation="5dp"
-      android:layout_gravity="center_horizontal"
-
+        android:layout_gravity="center_horizontal"
         app:contentPadding="5dp"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
+            android:id="@+id/signup_form"
             android:layout_marginTop="18dp"
             android:orientation="vertical">
 
@@ -35,6 +41,7 @@
                 android:padding="8dp"
                 android:textColor="@android:color/darker_gray"
                 android:layout_margin="5dp"
+                android:layout_marginTop="60dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="First Name">
 
@@ -265,5 +272,17 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/strange"
+        app:layout_anchor="@id/signup_form"
+        app:layout_anchorGravity="center|top"
+        android:id="@+id/user_image"
+        android:background="@android:color/transparent"
+        app:shapeAppearanceOverlay="@style/profileImage">
+    </com.google.android.material.imageview.ShapeableImageView>
+<!--   </RelativeLayout>-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

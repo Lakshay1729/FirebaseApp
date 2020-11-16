@@ -18,10 +18,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-
     //    private Realm realm1;
     //    private RealmConfiguration configuration;
-     var sharedPreferences: SharedPreferences? = null
+    var sharedPreferences: SharedPreferences? = null
     val sharedPrefs = "Shared"
     lateinit var binding:ActivityLoginBinding
     private var editor: SharedPreferences.Editor? = null
@@ -73,7 +72,6 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("UID",it.result?.user?.uid).apply()
                     startActivity(Intent(this,Dashboard::class.java))
                     finish()
-
                 }
                 else{
                     Snackbar.make(findViewById(R.id.parent),"Login failed",Snackbar.LENGTH_LONG).show()

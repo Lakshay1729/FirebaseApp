@@ -1,8 +1,10 @@
 package com.example.ui
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.ui.CharacterForm
 import com.example.ui.viewmodels.CharactersViewModel
 import com.google.android.gms.tasks.Task
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
@@ -22,14 +25,13 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.util.*
 
 
 class CharacterForm : AppCompatActivity() {
-
-
     //    private Characters character;
     private var sharedPreferences: SharedPreferences? = null
     val sharedPrefs = "Shared"
@@ -54,39 +56,31 @@ class CharacterForm : AppCompatActivity() {
         setContentView(R.layout.activity_character_form)
         sharedPreferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE)
         characterViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(CharactersViewModel::class.java)
-        //        app.loginAsync(Credentials.anonymous(), new App.Callback<io.realm.mongodb.User>() {
-//            @Override
-//            public void onResult(App.Result<io.realm.mongodb.User> result) {
-//                if(result.isSuccess()) {
-//                    //configuration=new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
-//                    Log.d("Suxess","Success");
-//                    io.realm.mongodb.User user = app.currentUser();
-//                    Long partitionValue = 123L;
-//                    assert user != null;
-//                    syncConfiguration = new SyncConfiguration.Builder(user, partitionValue).build();
-//                    Realm.setDefaultConfiguration(syncConfiguration);
-//                    Realm.getInstanceAsync(syncConfiguration, new Realm.Callback() {
-//                        @Override
-//                        public void onSuccess(Realm realm) {
-//                            realm1=realm;
-//                        }
-//                    });
-//                }
-//                else
-//                {
-//                    Log.d("Suxess","UNSuccess");
-//                }
-//
-//            }
-//        });
-//        character = new Characters( 123L);
-//        user=realm1.where(User.class).equalTo("email",sharedPreferences.getString("email","aaa")).findFirst();
         findViewById<View>(R.id.character_image).setOnClickListener {
             val pickerIntent = Intent(Intent.ACTION_PICK)
             pickerIntent.type = "image/*"
             startActivityForResult(pickerIntent, 100)
         }
         findViewById<View>(R.id.submit_form).setOnClickListener { createCharacter() }
+    }
+    fun getCameraPhotoOrientation(context: Context, imageUri: Uri?, imagePath: String?): Int {
+        var rotate = 0
+        try {
+            context.getContentResolver().notifyChange(imageUri!!, null)
+            val imageFile = File(imagePath)
+            val exif = ExifInterface(imageFile.getAbsolutePath())
+            val orientation: Int = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotate = 90
+            }
+            Log.i("RotateImage", "Exif orientation: $orientation")
+            Log.i("RotateImage", "Rotate value: $rotate")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return rotate
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
@@ -100,13 +94,16 @@ class CharacterForm : AppCompatActivity() {
                     bp = MediaStore.Images.Media.getBitmap(
                             this.contentResolver,
                             picUri)
-                    (findViewById<View>(R.id.character_image) as CircleImageView).setImageBitmap(bp)
+                    var rotate=getCameraPhotoOrientation(applicationContext,picUri,intent.data?.path)
+                    (findViewById<View>(R.id.character_image) as ShapeableImageView).setImageBitmap(bp)
                 } catch (e: FileNotFoundException) {
                     throw RuntimeException(e)
                 } catch (e: IOException) {
                     throw RuntimeException(e)
                 }
             }
+
+
             val stream = ByteArrayOutputStream()
             bp!!.compress(Bitmap.CompressFormat.JPEG, 80, stream)
             byteArray = stream.toByteArray()

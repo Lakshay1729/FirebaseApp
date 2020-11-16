@@ -23,6 +23,23 @@
 
     </style>
 
+    <style name="userImageView" parent="">
+
+        <item name="cornerRadius">@dimen/cardview_default_radius</item>
+        <item name="android:bottomLeftRadius">
+            10dp
+        </item>
+
+    </style>
+
+    <style name="profileImage">
+        <item name="cornerFamily">cut
+        </item>
+        <item name="backgroundColor">
+            @android:color/transparent
+        </item>
+        <item name="cornerSize">29%</item>
+    </style>
     <!--    <style name="AppTheme.Splash">-->
     <!--        <item name="android:windowBackground">@drawable/splash_screen</item>-->
     <!--    </style>-->

@@ -119,6 +119,7 @@ app:endIconTint="@android:color/darker_gray"
           android:textAppearance="@style/TextAppearance.AppCompat.Small"
           android:letterSpacing=".00009"
           android:text="New user? Sign Up"
+          android:layout_marginTop="20dp"
           android:textColor="@android:color/darker_gray"
           android:gravity="center_horizontal"
           >
