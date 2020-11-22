@@ -11,6 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ui.Model.UserModel
 import com.example.ui.databinding.ActivitySignupBinding
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
@@ -34,6 +35,7 @@ import kotlin.collections.HashMap
 
 //import static com.example.ui.MyApplication.app;
 class Signup : AppCompatActivity() {
+    private lateinit var userModel: UserModel
     private lateinit var binding: ActivitySignupBinding
     private lateinit var generatedFilePath: String
     private lateinit var uploadTask: UploadTask
@@ -51,6 +53,7 @@ class Signup : AppCompatActivity() {
         setContentView(binding.root)
         storage = FirebaseStorage.getInstance()
         db=FirebaseFirestore.getInstance()
+        userModel=UserModel()
         binding.userImage.setOnClickListener(View.OnClickListener {
              val intent=Intent()
             intent.type="image/*"
@@ -86,14 +89,21 @@ class Signup : AppCompatActivity() {
 
                         val editor= getSharedPreferences("Shared", MODE_PRIVATE).edit()
                         editor.putString("UID",it.result?.user?.uid).apply()
-                        map.put("UID",it.result?.user?.uid.toString())
-                        map.put("Email",binding.emailField.text.toString())
-                        map.put("Password",binding.passfield.text.toString())
-                        map.put("UserImage",generatedFilePath)
-                        map.put("FirstName",binding.nameField.text.toString())
-                        map.put("LastName",binding.lastnameField.text.toString())
-                        map.put("PhoneNumber",binding.numberField.text.toString())
-                        db.collection("users").add(map).addOnCompleteListener(OnCompleteListener {
+                        userModel.UID=it.result?.user?.uid.toString()
+                        userModel.Email=binding.emailField.text.toString()
+                        userModel.Password=binding.passfield.text.toString()
+                        userModel.UserImage=generatedFilePath
+                        userModel.FirstName=binding.nameField.text.toString()
+                        userModel.LastName=binding.lastnameField.text.toString()
+                        userModel.PhoneNumber=binding.numberField.text.toString()
+//                        map.put("UID",it.result?.user?.uid.toString())
+//                        map.put("Email",binding.emailField.text.toString())
+//                        map.put("Password",binding.passfield.text.toString())
+//                        map.put("UserImage",generatedFilePath)
+//                        map.put("FirstName",binding.nameField.text.toString())
+//                        map.put("LastName",binding.lastnameField.text.toString())
+//                        map.put("PhoneNumber",binding.numberField.text.toString())
+                        db.collection("users").add(userModel).addOnCompleteListener(OnCompleteListener {
                             startDashboard()
                         })
                     } else {

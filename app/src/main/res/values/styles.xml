@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="statusBarScrim">@color/light_blue_400</item>
     </style>
 
     <style name="Widget.AppTheme.MyView" parent="">
@@ -14,13 +15,17 @@
     </style>
 
     <style name="circleImageView" parent="">
+        <item name="cornerSize">50%</item>
+        <item name="cornerRadius">@dimen/cardview_default_radius</item>
+        <item name="cornerFamily">rounded</item>
+       
+
+    </style>
+    <style name="chatBox" parent="">
         <item name="cornerSize">20%</item>
         <item name="cornerRadius">@dimen/cardview_default_radius</item>
         <item name="cornerFamily">rounded</item>
-        <item name="android:bottomLeftRadius">
-            10dp
-        </item>
-
+        <item name="backgroundColor"> #FFFF</item>
     </style>
 
     <style name="userImageView" parent="">

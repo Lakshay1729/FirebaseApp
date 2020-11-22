@@ -19,7 +19,7 @@ class ContributorsRepository(application: Context) {
     lateinit var db:FirebaseFirestore
 
     fun getAllContributors(): MutableLiveData<List<DocumentSnapshot>> {
-        db.collection("users").addSnapshotListener(Executors.newSingleThreadExecutor(), EventListener { value, error ->
+        db.collection("users").whereNotEqualTo("UID",string).addSnapshotListener(Executors.newSingleThreadExecutor(), EventListener { value, error ->
             results.postValue(value?.documents)
 //            Log.d("Contributor",value?.documents!!.get(0).get("LastName").toString())
            error?.let {

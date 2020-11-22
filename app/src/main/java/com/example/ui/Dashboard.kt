@@ -66,6 +66,7 @@ class Dashboard : AppCompatActivity() {
         recyclerView = findViewById<View>(R.id.recycler_view) as RecyclerView
         staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         recyclerView!!.layoutManager = staggeredGridLayoutManager
+        recyclerView!!.setHasFixedSize(true)
         val storageRef = storage.reference
 //        customAdapter = CustomAdapter(applicationContext, li)
         characterViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(CharactersViewModel::class.java).apply {
@@ -75,6 +76,7 @@ class Dashboard : AppCompatActivity() {
         characterViewModel!!.getallCharacters().observe(this, { documentSnapshots -> //                            customAdapter.setData(li);
 
             customAdapter = CustomAdapter(applicationContext, documentSnapshots)
+            recyclerView!!.scheduleLayoutAnimation()
             recyclerView!!.adapter = customAdapter
         })
 

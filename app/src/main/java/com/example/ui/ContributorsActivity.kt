@@ -1,8 +1,6 @@
 package com.example.ui
 
-import android.content.Context
-import android.media.ExifInterface
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +15,8 @@ import com.bumptech.glide.Glide
 import com.example.ui.databinding.ActivityContributorsBinding
 import com.example.ui.databinding.ListviewBinding
 import com.example.ui.viewmodels.ContributorsViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.DocumentSnapshot
-import java.io.File
 
 class ContributorsActivity : AppCompatActivity() {
     lateinit var liste:List<DocumentSnapshot>
@@ -27,10 +25,13 @@ class ContributorsActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val binding=ActivityContributorsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val ContriViewModel=ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(ContributorsViewModel::class.java)
         ContriViewModel.getAllLiveContributors().observe(this, Observer {
+            binding.recyclerViewProfiles.scheduleLayoutAnimation()
             binding.recyclerViewProfiles.adapter = MyAdapter(it)
         })
+
     }
 
     class MyAdapter(list: List<DocumentSnapshot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -52,6 +53,13 @@ class ContributorsActivity : AppCompatActivity() {
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
             fun bind(position: Int, myAdapter: MyAdapter) {
 //                myAdapter.results.get(position).
+                myAdapter.binding.chat.setOnClickListener(View.OnClickListener {
+                    val editor= itemView.context.getSharedPreferences("Shared", MODE_PRIVATE).edit()
+                    Log.d("user_id",myAdapter.results.get(position).get("UID").toString())
+                    editor.putString("user_key",myAdapter.results.get(position).get("UID").toString()).apply()
+                    itemView.context.startActivity(Intent(it.context,ChatActivity::class.java))
+
+                })
                 Glide.with(itemView).load(myAdapter.results.get(position).get("UserImage").toString()).into(myAdapter.binding.userImage)
                 myAdapter.binding.userName.text=myAdapter.results.get(position).get("FirstName").toString()+" "+myAdapter.results.get(position).get("LastName").toString()
                 myAdapter.binding.userEmail.text=myAdapter.results.get(position).get("Email").toString()

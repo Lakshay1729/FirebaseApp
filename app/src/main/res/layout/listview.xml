@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="1dp"
+    android:elevation="5dp"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/list_item">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="9"
-    android:padding="1dp"
-android:layout_marginTop="10dp"
-    android:background="@drawable/list_item">
+>
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -51,5 +59,40 @@ android:layout_marginTop="10dp"
         </TextView>
 
     </LinearLayout>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:paddingHorizontal="8dp"
+        android:orientation="horizontal">
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:fabSize="mini"
+    android:backgroundTint="#FBF8F8"
+    android:id="@+id/follow"
+    android:src="@android:drawable/ic_input_add"
+    android:foregroundTint="#FFFF"
+    android:layout_margin="4dp"
+    app:elevation="7dp"
+    >
 
+</com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:backgroundTint="#FBFBFB"
+            android:src="@android:drawable/sym_action_chat"
+            android:layout_margin="4dp"
+            android:tint="#FFFF"
+            android:id="@+id/chat"
+            app:backgroundTint="#FFFF"
+            app:elevation="7dp"
+            >
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="8"
+    app:stackFromEnd="true"
+    app:reverseLayout="true"
+    android:background="@drawable/chat_gradient"
+    tools:context=".ChatActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chat_log"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:spanCount="1"
+        android:layout_marginTop="15dp"
+        android:layoutAnimation="@anim/chat_layout_anim"
+        android:layout_weight="7.6">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="9"
+        android:layout_weight=".2"
+        android:paddingBottom="3dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            android:paddingStart="12dp"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="#FFFF"
+            app:boxStrokeWidth="1dp"
+            app:hintTextColor="#F4F0F0"
+            app:hintAnimationEnabled="true"
+
+            android:paddingLeft="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:paddingStart="12dp"
+                android:layout_weight="8"
+                android:layout_height="match_parent"
+                android:id="@+id/chat_msg"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:hint="Write A Message"
+                android:paddingLeft="12dp">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingRight="10dp"
+            android:paddingBottom="6dp"
+            >
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:backgroundTint="#069F2C"
+            android:src="@drawable/baseline_send_white_36"
+            android:id="@+id/send_msg"
+            android:layout_gravity="center"
+            >
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
